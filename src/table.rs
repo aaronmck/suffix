@@ -257,7 +257,7 @@ impl<'s, 't> SuffixTable<'s, 't> {
         }
     }
     pub fn positions(&self, query: &str) -> &[u32] {
-        positions(query.as_bytes());
+        positions(query.as_bytes())
     }
 
     /// Returns an arbitrary one of the positions where `query` starts in
