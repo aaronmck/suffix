@@ -219,8 +219,8 @@ impl<'s, 't> SuffixTable<'s, 't> {
     /// let sa = SuffixTable::new("The quick brown fox was very quick.");
     /// assert_eq!(sa.positions("quick"), &[4, 29]);
     /// ```
-    pub fn positions(&self, query: &str) -> &[u32] {
-        let (text, query) = (self.text.as_bytes(), query.as_bytes());
+    pub fn positions_internal(&self, query: &[u8]) -> &[u32] {
+        let (text, query) = (self.text.as_bytes(), query);
 
         // We can quickly decide whether the query won't match at all if
         // it's outside the range of suffixes.
@@ -255,6 +255,9 @@ impl<'s, 't> SuffixTable<'s, 't> {
         } else {
             &self.table[start..end]
         }
+    }
+    pub fn positions(&self, query: &str) -> &[u32] {
+        positions(query.as_bytes());
     }
 
     /// Returns an arbitrary one of the positions where `query` starts in
